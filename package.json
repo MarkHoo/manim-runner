@@ -1,0 +1,87 @@
+{
+  "name": "manim-runner",
+  "displayName": "Manim Runner",
+  "description": "Run and preview Manim scenes in VSCode",
+  "version": "1.0.0",
+  "publisher": "MarkHoo",
+  "icon": "logo.png",
+  "engines": {
+    "vscode": "^1.92.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:manim-runner.runScene"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "manim-runner.runScene",
+        "title": "Run Manim Scene",
+        "icon": "$(play)",
+        "enablement": "resourceLangId == python"
+      }
+    ],
+    "menus": {
+      "editor/title/run": [
+        {
+          "command": "manim-runner.runScene",
+          "when": "resourceLangId == python",
+          "group": "navigation@0"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Manim Runner",
+      "properties": {
+        "manim-runner.defaultQuality": {
+          "type": "string",
+          "default": "l",
+          "enum": [
+            "l",
+            "m",
+            "h",
+            "p",
+            "k"
+          ],
+          "enumDescriptions": [
+            "Low quality (854x480 15FPS)",
+            "Medium quality (1280x720 30FPS)",
+            "High quality (1920x1080 60FPS)",
+            "2K quality (2560x1440 60FPS)",
+            "4K quality (3840x2160 60FPS)"
+          ],
+          "description": "Set the default rendering quality"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.0",
+    "@types/node": "^16.18.0",
+    "@types/vscode": "^1.50.0",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "@vscode/test-electron": "^2.3.0",
+    "eslint": "^8.45.0",
+    "glob": "^10.3.0",
+    "mocha": "^10.2.0",
+    "typescript": "^5.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MarkHoo/manim-runner"
+  },
+  "license": "MIT"
+}
